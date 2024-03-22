@@ -18,10 +18,10 @@ const bucket = process.env.BUCKET;
 
   const dumpPath = path.resolve(__dirname, backupName);
 
-  const command = `mongodump --uri '${uri}' --gzip --archive=${dumpPath}`;
+  const input = `mongodump --uri '${uri}' --gzip --archive=${dumpPath}`;
 
   try {
-    await exec(command);
+    await exec(input);
 
     const readStream = fs.createReadStream(dumpPath);
     const params = {

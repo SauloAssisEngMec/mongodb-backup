@@ -16,7 +16,7 @@ create a s3 bucket in a AWS
 
 1 - open AWS account
 2 - search s3
-3 -
+3 - create bucket add name and rules
 
 ## mongodump and mongorestore
 

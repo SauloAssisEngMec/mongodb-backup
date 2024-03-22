@@ -4,6 +4,7 @@ const exec = (input) => {
   return new Promise((resolve, reject) => {
     execNonPromise(input, (error, stdout, stderr) => {
       if (error) {
+        console.log("s");
         return reject(error);
       }
       if (stderr) {

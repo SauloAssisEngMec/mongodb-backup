@@ -1,10 +1,39 @@
 # mondodb-backup
 
-This repository was created to explain how automate MongoDB backup and restore using node js AWS s3 bucket and github action. But at the end theres more information and overview about different ways of backup e its characteristics.
+This repository was created to explain how automate MongoDB backup and restore using different ways. We can use automate Tools like cron job, Task Scheduler, aws lambda github actions all tools that allow you scheduler a trigger a event. Furthermore we can use nodejs or scripts bash to connect cloud with local machine. Lastly we need use a storage to save the database files e.g like s3 bucket, for instance. At the end theres more information and overview about different ways of backup e its characteristics.
+
+## automate backup using cron job from linux or Task Scheduler (on Windows), aws S3 and aws EC2.
+
+### Cron (cron utility is a job scheduler from linux)
+
+Here we will use Cron jobs. Cron is a job scheduling utility present in linux (ubuntu here)like systems. The crond daemon enables cron functionality and runs in background. The cron reads the crontab for running predefined scripts. So you can configure a cron job to schedule scripts or other commands to run automatically. So there a little price to automate something different of other system of scheduling like lambda aws(triggered by events) or any other paid scheduler tool.
+
+### cretae a s3 bucket
+
+create a s3 bucket in a AWS
+
+1 - open AWS account
+
+2 - create s3
+
+3 - create or use IAM rules
+
+### Configure IAM user in EC2.
+
+here we can use "Aws cli" or "s3cmd" for get a connection via ssh
+with instance EC2. see articles abaixo.
+
+### creating script (see e.g script in folder backup-script-cron)
+
+Some code that will sync data from local(iin my case the local is an AWS EC2 instance that is hosting a mongoDB database) to s3 bucket.
+
+note that to config create a user in CLI, you should connect ec2 to the local terminal via SSH (need add you Ip in inbound rules of aws securityGroup to get permission) then install AWS CLI, run some commands for these.
+
+[[article about this approach](https://www.codeproject.com/Tips/547759/Automating-backup-for-MongoDB-using-CRON-and-S3CMD)
 
 [[see more](https://www.linkedin.com/pulse/automate-backup-mongodb-amazon-s3-using-cron-tool-aws-shukla/)
 
-## nodejs
+### nodejs
 
 npm init -y (start node env)
 
@@ -16,17 +45,17 @@ npm install dontenv
 yarn add aws-sdk
 yarn add dontenv
 
-## s3
+### s3
 
 create a s3 bucket in a AWS
 
 1 - open AWS account
 
-2 - search s3
+2 - create s3
 
-3 -
+3 - create or use IAM rules
 
-## mongodump and mongorestore
+### mongodump and mongorestore
 
 mongodump is a utility that creates a binary export of a database's contents. mongodump can export data from:
 
@@ -53,7 +82,7 @@ Command to install:
 
 # Others Backups
 
-### Using AWS backup or Amazon EBS snapshots
+## Using AWS backup or Amazon EBS snapshots
 
 If you're running MongoDB on an EC2 instance in AWS, the AWS backup services, like Amazon EBS snapshots or AWS Backup, can be used to back up the entire EC2 instance, including the MongoDB data and configuration.
 
@@ -70,7 +99,7 @@ cons: high price
 
 [see more](https://www.youtube.com/watch?v=a0w-fc4WoTY&list=PLQHh55hXC4yr8HiX_8LHiu0UyPbLkg3Tv&index=1)
 
-## Use a cron job (on Linux) or Task Scheduler (on Windows) with
+## Use a cron job (on Linux) or
 
 1 - MongoDB Tools: Install the MongoDB tools, specifically mongodump, on the server where MongoDB is running. This tool is used to create a backup of the MongoDB database.
 2 - Script the Backup Process: Write a script that uses mongodump to create a backup of the MongoDB database and then uploads the backup to Amazon S3 using the AWS CLI or an SDK
@@ -78,7 +107,7 @@ cons: high price
 
 pros: easier and cheaper
 
-## using aws lambda
+## Using aws lambda and cloudWatch
 
 To automate MongoDB database backups to Amazon S3, you can use AWS Lambda along with CloudWatch Events to schedule the backups. Overview Steps:
 

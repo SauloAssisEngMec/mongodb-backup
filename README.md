@@ -2,7 +2,16 @@
 
 This repository was created to explain how automate MongoDB backup and restore using different ways. We can use automate Tools like cron job, Task Scheduler, aws lambda github actions all tools that allow you scheduler a trigger a event. Furthermore we can use nodejs or scripts bash to connect cloud with local machine. Lastly we need use a storage to save the database files e.g like s3 bucket, for instance. At the end theres more information and overview about different ways of backup e its characteristics.
 
+GOOOOD TIPS: FIRTS TEST IN YOUR LOCAL MACHINE AND NOT IN CLOUD COMPANY, HAHAH :D
+
 ## automate backup using cron job from linux or Task Scheduler (on Windows), aws S3 and aws EC2.
+
+### install
+
+1 - AWS cLi
+2 - install mongodump and restore, but first you can check if already theres this libs using "mongodump --version". Maybe mongodump tools comming with mongodb install, but in some versions did not. See more about this tools in the section below.
+
+[install aws cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 ### Cron (cron utility is a job scheduler from linux)
 
@@ -16,18 +25,30 @@ create a s3 bucket in a AWS
 
 2 - create s3
 
-3 - create or use IAM rules
+3 - create NEW user OR use an existing IAM user rules,
+
+4 - remeber to get access key and secret access key after create your bucket to use to get connection via AWS CLi
 
 ### Configure IAM user in EC2.
 
 here we can use "Aws cli" or "s3cmd" for get a connection via ssh
-with instance EC2. see articles abaixo.
+with instance EC2. see articles.
+
+but to use this below script its necessary configure aws using "aws configure" command
+
+insert
+1 - access keys
+2 - access secret key
+3 - region
+4 - json (format used)
 
 ### creating script (see e.g script in folder backup-script-cron)
 
-Some code that will sync data from local(iin my case the local is an AWS EC2 instance that is hosting a mongoDB database) to s3 bucket.
+Some code that will sync data from local (in my case the local is an AWS EC2 instance that is hosting a mongoDB database) to s3 bucket.
 
 note that to config create a user in CLI, you should connect ec2 to the local terminal via SSH (need add you Ip in inbound rules of aws securityGroup to get permission) then install AWS CLI, run some commands for these.
+
+now run the script called script.sh, remeber to change variables names of the scripts for your case!!!!!
 
 [[article about this approach](https://www.codeproject.com/Tips/547759/Automating-backup-for-MongoDB-using-CRON-and-S3CMD)
 

@@ -13,10 +13,6 @@ GOOOOD TIPS: FIRTS TEST IN YOUR LOCAL MACHINE AND NOT IN CLOUD COMPANY, HAHAH :D
 
 [install aws cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
-### Cron (cron utility is a job scheduler from linux)
-
-Here we will use Cron jobs. Cron is a job scheduling utility present in linux (ubuntu here)like systems. The crond daemon enables cron functionality and runs in background. The cron reads the crontab for running predefined scripts. So you can configure a cron job to schedule scripts or other commands to run automatically. So there a little price to automate something different of other system of scheduling like lambda aws(triggered by events) or any other paid scheduler tool.
-
 ### cretae a s3 bucket
 
 create a s3 bucket in a AWS
@@ -50,9 +46,51 @@ note that to config create a user in CLI, you should connect ec2 to the local te
 
 now run the script called script.sh, remeber to change variables names of the scripts for your case!!!!!
 
-[[article about this approach](https://www.codeproject.com/Tips/547759/Automating-backup-for-MongoDB-using-CRON-and-S3CMD)
+### Cron (cron utility is a job scheduler from linux)
 
-[[see more](https://www.linkedin.com/pulse/automate-backup-mongodb-amazon-s3-using-cron-tool-aws-shukla/)
+Here we will use Cron jobs. Cron is a job scheduling utility present in linux (ubuntu here)like systems. The crond daemon enables cron functionality and runs in background. The cron reads the crontab for running predefined scripts. So you can configure a cron job to schedule scripts or other commands to run automatically. So there a little price to automate something different of other system of scheduling like lambda aws(triggered by events) or any other paid scheduler tool.
+
+you can check that there is cron that already did to do somenting for your for sometinh else. see
+ls /etc/cron.daily/
+ls /etc/cron.weekly/
+ls /etc/cron.monthly/
+
+To starting, inser the command "vi /etc/crontab to learning a litle about crontab.
+
+Example of job definition:
+.---------------- minute (0 - 59)
+| .------------- hour (0 - 23)
+| | .---------- day of month (1 - 31)
+| | | .------- month (1 - 12) OR jan,feb,mar,apr ...
+| | | | .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+| | | | |
+. . . . . user-name command to be executed
+17 . . . . root cd / && run-parts --report /etc/cron.hourly
+25 6 . . . root test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6 . . 7 root test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6 1 . . root test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+
+Now you can see how crontab is setup (NOTE THA WE USE . STEAD OF \*)
+
+let do an example: here we will use
+
+minute| hour | day | month | day of week |
+30 | 22 | . | . | . |  
+when we use "." its mean all, all day, all month, all day of the week
+
+lets confidure our case:
+
+1 - insert the comando: "crontab -e"
+
+2 - choose: 2
+
+3 - insert the code and save it: `0 22 * * * /home/ubuntu/script.sh > /home/ubuntu/script.log`
+
+choose the our you want
+
+[article about this approach](https://www.codeproject.com/Tips/547759/Automating-backup-for-MongoDB-using-CRON-and-S3CMD)
+
+[see more](https://www.linkedin.com/pulse/automate-backup-mongodb-amazon-s3-using-cron-tool-aws-shukla/)
 
 ### nodejs
 

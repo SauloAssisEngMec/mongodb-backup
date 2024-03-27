@@ -52,9 +52,12 @@ now run the script called script.sh, remeber to change variables names of the sc
 Here we will use Cron jobs. Cron is a job scheduling utility present in linux (ubuntu here)like systems. The crond daemon enables cron functionality and runs in background. The cron reads the crontab for running predefined scripts. So you can configure a cron job to schedule scripts or other commands to run automatically. So there a little price to automate something different of other system of scheduling like lambda aws(triggered by events) or any other paid scheduler tool.
 
 you can check that there is cron that already did to do somenting for you computer for sometinh else. see
-`ls /etc/cron.daily/`
-`ls /etc/cron.weekly/`
-`ls /etc/cron.monthly/`
+
+`ls /etc/cron.daily/` -> cron that triggered daily
+
+`ls /etc/cron.weekly/` //
+
+`ls /etc/cron.monthly/` //
 
 To starting, insert the command `vi /etc/crontab` to learning a litle about crontab.
 
@@ -113,8 +116,11 @@ create a s3 bucket in a AWS
 mongodump is a utility that creates a binary export of a database's contents. mongodump can export data from:
 
 1 - Standalone deployments
+
 2 - Replica sets
+
 3 - Sharded clusters
+
 4 - Serverless instances
 
 As you can see, its necessary install this tools mongodump e mongorestore to help us create a backup and restore using this functions bellow:
@@ -153,7 +159,9 @@ cons: high price
 ## Use a cron job (on Linux) or
 
 1 - MongoDB Tools: Install the MongoDB tools, specifically mongodump, on the server where MongoDB is running. This tool is used to create a backup of the MongoDB database.
-2 - Script the Backup Process: Write a script that uses mongodump to create a backup of the MongoDB database and then uploads the backup to Amazon S3 using the AWS CLI or an SDK
+
+2 - Script the Backup Process: Write a script that uses mongodump to create a backup of the MongoDB database and then uploads the backup to Amazon S3 using the AWS CLI or an SDK.
+
 3 - Schedule the Script: Use a cron job (on Linux) or Task Scheduler (on Windows) to schedule the script to run at the desired frequency (e.g., daily, weekly).
 
 pros: easier and cheaper

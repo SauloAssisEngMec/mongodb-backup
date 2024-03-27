@@ -1,6 +1,6 @@
 # mondodb-backup
 
-This repository was created to explain how automate MongoDB backup and restore using different ways. We can use automate Tools like cron job, Task Scheduler, aws lambda github actions all tools that allow you scheduler a trigger a event. Furthermore we can use nodejs or scripts bash to connect cloud with local machine. Lastly we need use a storage to save the database files e.g like s3 bucket, for instance. At the end theres more information and overview about different ways of backup e its characteristics.
+This repository was created to explain how automate MongoDB backup and restore using different ways. We can use automate Tools like cron job, Task Scheduler, aws lambda github actions all tools that allow you scheduler a trigger a event. Furthermore we can use nodejs or scripts bash to connect cloud with local machine. Lastly we need use a storage to save the database files e.g s3 bucket. At the end, there's more information and overview about different ways of backup e its characteristics.
 
 GOOOOD TIPS: FIRTS TEST IN YOUR LOCAL MACHINE AND NOT IN CLOUD COMPANY, HAHAH :D
 
@@ -10,6 +10,7 @@ GOOOOD TIPS: FIRTS TEST IN YOUR LOCAL MACHINE AND NOT IN CLOUD COMPANY, HAHAH :D
 
 1 - AWS cLi
 2 - install mongodump and restore, but first you can check if already theres this libs using "mongodump --version". Maybe mongodump tools comming with mongodb install, but in some versions did not. See more about this tools in the section below.
+3 - here we will use crontab (cron jobs)
 
 [install aws cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
@@ -50,30 +51,30 @@ now run the script called script.sh, remeber to change variables names of the sc
 
 Here we will use Cron jobs. Cron is a job scheduling utility present in linux (ubuntu here)like systems. The crond daemon enables cron functionality and runs in background. The cron reads the crontab for running predefined scripts. So you can configure a cron job to schedule scripts or other commands to run automatically. So there a little price to automate something different of other system of scheduling like lambda aws(triggered by events) or any other paid scheduler tool.
 
-you can check that there is cron that already did to do somenting for your for sometinh else. see
-ls /etc/cron.daily/
-ls /etc/cron.weekly/
-ls /etc/cron.monthly/
+you can check that there is cron that already did to do somenting for you computer for sometinh else. see
+`ls /etc/cron.daily/`
+`ls /etc/cron.weekly/`
+`ls /etc/cron.monthly/`
 
-To starting, inser the command "vi /etc/crontab to learning a litle about crontab.
+To starting, insert the command `vi /etc/crontab` to learning a litle about crontab.
 
 <img src="https://irias.com.br/blog/wp-content/uploads/2021/01/crontab.png" alt="cronta-image"/>
 
-Now you can see how crontab is setup (NOTE THA WE USE . STEAD OF \*)
+Now you can see how crontab is setup
 
 let do an example: here we will use
 
 minute| hour | day | month | day of week |
-30 | 22 | . | . | . |  
-when we use "." its mean all, all day, all month, all day of the week
+30 | 22 | \* | \* | \* |  
+when we use "\*" its mean all, e.g all day, all month, all day of the week etc
 
-lets confidure our case:
+lets configure our case:
 
 1 - insert the comando: "crontab -e"
 
 2 - choose: 2
 
-3 - insert the code and save it: `0 22 * * * /home/ubuntu/script.sh > /home/ubuntu/script.log`
+3 - insert the code and save it: `0 22 * * * /home/ubuntu/script.sh > /home/ubuntu/scripts-logs/script.log` ITS MEAN: make a backup all day at 22:00 oclock
 
 choose the our you want
 
@@ -81,17 +82,21 @@ choose the our you want
 
 [see more](https://www.linkedin.com/pulse/automate-backup-mongodb-amazon-s3-using-cron-tool-aws-shukla/)
 
+# Others Backups
+
+## backup using nodejs, aws s3 and githubctions
+
 ### nodejs
 
-npm init -y (start node env)
+`npm init -y`
 
 required libs:
 
-npm install aws-sdk
-npm install dontenv
+`npm install aws-sdk`
+`npm install dontenv`
 
-yarn add aws-sdk
-yarn add dontenv
+`yarn add aws-sdk`
+`yarn add dontenv`
 
 ### s3
 
@@ -116,10 +121,10 @@ As you can see, its necessary install this tools mongodump e mongorestore to hel
 
 To backup (using mongodump)
 
-mongodump --uri ${uri} --gzip --archive=${dumpPath}
+`mongodump --uri ${uri} --gzip --archive=${dumpPath}`
 
 To restore (using mongorestore )
-mongorestore --uri ${uri} --gzip --archive=${dumpPath}
+`mongorestore --uri ${uri} --gzip --archive=${dumpPath}`
 
 Command to install:
 
@@ -127,8 +132,6 @@ Command to install:
 [install](https://www.mongodb.com/docs/database-tools/installation/installation-linux/)
 
 ### github actions
-
-# Others Backups
 
 ## Using AWS backup or Amazon EBS snapshots
 
@@ -161,7 +164,7 @@ To automate MongoDB database backups to Amazon S3, you can use AWS Lambda along 
 
 1 - Create an AWS Lambda Function: Write a Lambda function that uses the mongodump command to create a backup of your MongoDB database and then uploads the backup to S3 using the AWS SDK.
 
-2 - Set Up a CloudWatch Event Rule: Create a CloudWatch Event rule that triggers the Lambda function at the desired frequency (e.g., daily, weekly).
+2 - Set Up a CloudWatch Event Rule: Create a CloudWatch Event rule that triggers the Lambda function at the desired frequency (e.g., daily, weekly), like we did with crontab.
 
 3 - Configure IAM Roles: Ensure that the Lambda function has the necessary permissions to access MongoDB (if it's running on an EC2 instance) and to write to the S3 bucket.
 

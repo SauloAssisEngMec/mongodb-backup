@@ -57,7 +57,7 @@ ls /etc/cron.monthly/
 
 To starting, inser the command "vi /etc/crontab to learning a litle about crontab.
 
-<img src='https://www.google.com/url?sa=i&url=https%3A%2F%2Firias.com.br%2Fblog%2Fcrontab-guia-pratico-agendamento-de-tarefas-no-linux%2F&psig=AOvVaw27-MZ01GvblrrjhcCtbvHG&ust=1711640151952000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCMCg6MvilIUDFQAAAAAdAAAAABAE' alt="cronta-image"/>
+<img src="https://irias.com.br/blog/wp-content/uploads/2021/01/crontab.png" alt="cronta-image"/>
 
 Now you can see how crontab is setup (NOTE THA WE USE . STEAD OF \*)
 
